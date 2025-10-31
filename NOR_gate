@@ -1,0 +1,11 @@
+// NOR gate source file
+
+module nor_gate (
+    input  a,      
+    input  b,       
+    output y        
+);
+
+    assign y = ~(a | b);   // Logic for NOR operation
+
+endmodule
