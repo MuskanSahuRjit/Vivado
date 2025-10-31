@@ -1,0 +1,11 @@
+// XOR Gate in Verilog
+
+module xor_gate (
+    input  a,      
+    input  b,       
+    output y      
+);
+
+    assign y = a ^ b;   // Logic for XOR operation
+
+endmodule
