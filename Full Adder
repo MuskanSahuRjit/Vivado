@@ -1,0 +1,14 @@
+// Full Adder in Verilog
+
+module full_adder (
+    input  a,          // First input bit
+    input  b,          // Second input bit
+    input  cin,        // Carry input
+    output sum,        // Sum output
+    output carry       // Carry output
+);
+
+    assign sum = a ^ b ^ cin;                 
+    assign carry = (a & b) | (b & cin) | (a & cin);  
+
+endmodule
