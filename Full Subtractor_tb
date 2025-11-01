@@ -1,0 +1,50 @@
+`timescale 1ns / 1ps
+
+module full_subtractor_tb;
+    reg a;
+    reg b;
+    reg bin;
+    wire diff;
+    wire bout;
+
+    // Instantiate full subtractor
+    full_subtractor uut (
+        .a(a),
+        .b(b),
+        .bin(bin),
+        .diff(diff),
+        .bout(bout)
+    );
+
+    initial begin
+        $display("A  B  Bin |  DIFF  BORROW");
+        $display("--------------------------");
+
+        // Test all 8 input combinations
+        a=0; b=0; bin=0; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        a=0; b=0; bin=1; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        a=0; b=1; bin=0; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        a=0; b=1; bin=1; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        a=1; b=0; bin=0; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        a=1; b=0; bin=1; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        a=1; b=1; bin=0; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        a=1; b=1; bin=1; #10;
+        $display("%b  %b   %b  |   %b      %b", a, b, bin, diff, bout);
+
+        $finish;
+    end
+endmodule
