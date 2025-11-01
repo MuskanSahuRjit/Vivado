@@ -1,0 +1,32 @@
+module tb_mux4x1_2bit;
+    reg [1:0] a, b, c, d;
+    reg [1:0] sel;
+    wire [1:0] y;
+
+    mux4x1_2bit_gate uut (
+        .a(a), .b(b), .c(c), .d(d),
+        .sel(sel), .y(y)
+    );
+
+    initial begin
+        $display("time sel |  a   b   c   d  | y");
+        $monitor("%4t  %b     %b %b %b %b  -> %b", $time, sel, a, b, c, d, y);
+
+        // Test vectors
+        a = 2'b00; b = 2'b01; c = 2'b10; d = 2'b11;
+
+        sel = 2'b00; #10; // expect y = a = 00
+        sel = 2'b01; #10; // expect y = b = 01
+        sel = 2'b10; #10; // expect y = c = 10
+        sel = 2'b11; #10; // expect y = d = 11
+
+        // additional checks
+        a = 2'b10; b = 2'b11; c = 2'b01; d = 2'b00;
+        sel = 2'b00; #10;
+        sel = 2'b01; #10;
+        sel = 2'b10; #10;
+        sel = 2'b11; #10;
+
+        $finish;
+    end
+endmodule
