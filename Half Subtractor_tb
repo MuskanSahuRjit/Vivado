@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+
+module half_subtractor_tb;
+    reg a;
+    reg b;
+    wire diff;
+    wire borrow;
+
+    // Instantiate half subtractor
+    half_subtractor uut (
+        .a(a),
+        .b(b),
+        .diff(diff),
+        .borrow(borrow)
+    );
+
+    initial begin
+        $display("A  B  |  DIFF  BORROW");
+        $display("----------------------");
+
+        a=0; b=0; #10;
+        $display("%b  %b  |   %b      %b", a, b, diff, borrow);
+
+        a=0; b=1; #10;
+        $display("%b  %b  |   %b      %b", a, b, diff, borrow);
+
+        a=1; b=0; #10;
+        $display("%b  %b  |   %b      %b", a, b, diff, borrow);
+
+        a=1; b=1; #10;
+        $display("%b  %b  |   %b      %b", a, b, diff, borrow);
+
+        $finish;
+    end
+endmodule
