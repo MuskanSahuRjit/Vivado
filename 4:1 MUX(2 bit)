@@ -1,0 +1,47 @@
+
+module mux4x1_2bit_gate (
+    input  [1:0] a,
+    input  [1:0] b,
+    input  [1:0] c,
+    input  [1:0] d,
+    input  [1:0] sel,   
+    output [1:0] y
+);
+    // inverted select bits
+    
+    wire n0, n1;
+    not (n0, sel[0]);
+    not (n1, sel[1]);
+
+    // one-hot enable lines (decoding sel)
+     wire en0, en1, en2, en3;
+    
+    // en0 = ~s1 & ~s0  (select a)
+    and (en0, n1, n0);
+    
+    // en1 = ~s1 &  s0  (select b)
+    and (en1, n1, sel[0]);
+    
+    // en2 =  s1 & ~s0  (select c)
+    and (en2, sel[1], n0);
+    
+    // en3 =  s1 &  s0  (select d)
+    and (en3, sel[1], sel[0]);
+
+    // bit 0: AND each input bit with its enable, then OR
+    wire a0_e, b0_e, c0_e, d0_e;
+    and (a0_e, a[0], en0);
+    and (b0_e, b[0], en1);
+    and (c0_e, c[0], en2);
+    and (d0_e, d[0], en3);
+    or  (y[0], a0_e, b0_e, c0_e, d0_e);
+
+    // bit 1: same as bit 0
+    wire a1_e, b1_e, c1_e, d1_e;
+    and (a1_e, a[1], en0);
+    and (b1_e, b[1], en1);
+    and (c1_e, c[1], en2);
+    and (d1_e, d[1], en3);
+    or  (y[1], a1_e, b1_e, c1_e, d1_e);
+
+endmodule
